@@ -310,6 +310,14 @@ Prefab:
       propertyPath: healthText
       value: 
       objectReference: {fileID: 93537621}
+    - target: {fileID: 21246652, guid: 28b53fc28d3a140c392f0e2d919f9de1, type: 2}
+      propertyPath: m_SortingLayerID
+      value: 350516445
+      objectReference: {fileID: 0}
+    - target: {fileID: 21246652, guid: 28b53fc28d3a140c392f0e2d919f9de1, type: 2}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28b53fc28d3a140c392f0e2d919f9de1, type: 2}
   m_IsPrefabAsset: 0
