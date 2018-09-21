@@ -8,7 +8,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 433658}
-  - component: {fileID: 11433656}
+  - component: {fileID: 114898250200377028}
+  - component: {fileID: 114466977782921338}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -29,7 +30,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &11433656
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 133658}
+  m_IsPrefabAsset: 1
+--- !u!114 &114466977782921338
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 133658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed6fc58b13318914eb8b5fae483a9059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minBound: 0
+  maxBound: 0
+  endPos: {x: 0, y: 0}
+--- !u!114 &114898250200377028
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,14 +69,3 @@ MonoBehaviour:
   turnDelay: 0.1
   healthPoints: 100
   playersTurn: 1
---- !u!1001 &100100000
-Prefab:
-  m_ObjectHideFlags: 1
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications: []
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 133658}
-  m_IsPrefabAsset: 1
