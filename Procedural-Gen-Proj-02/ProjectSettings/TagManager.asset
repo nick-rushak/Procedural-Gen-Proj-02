@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Exit
   layers:
   - Default
   - TransparentFX
@@ -43,6 +44,9 @@ TagManager:
     locked: 0
   - name: Floor
     uniqueID: 2703887999
+    locked: 0
+  - name: Items
+    uniqueID: 3262315579
     locked: 0
   - name: Units
     uniqueID: 350516445
