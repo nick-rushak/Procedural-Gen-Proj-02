@@ -67,5 +67,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnDelay: 0.1
-  healthPoints: 100
+  healthPoints: 1
   playersTurn: 1
