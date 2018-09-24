@@ -69,6 +69,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dmgSprite: {fileID: 21300108, guid: fbe1e7b94bb1a4a099d5bcb15a00141c, type: 3}
   hp: 4
+  foodTiles:
+  - {fileID: 1977965678746870, guid: a7d5741de1d54304bbb4304b78b43bc1, type: 2}
+  - {fileID: 1718317684683816, guid: 993a4083caf43a846b08c5d84fe1304b, type: 2}
 --- !u!212 &21210520
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -102,7 +105,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 350516445
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300062, guid: fbe1e7b94bb1a4a099d5bcb15a00141c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

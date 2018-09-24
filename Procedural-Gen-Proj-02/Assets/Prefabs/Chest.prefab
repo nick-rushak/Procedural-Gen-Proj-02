@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4273084425414486}
   - component: {fileID: 212117300570664626}
   - component: {fileID: 61599774962307600}
+  - component: {fileID: 114443744641477670}
   m_Layer: 8
   m_Name: Chest
   m_TagString: Untagged
@@ -64,8 +65,22 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.0001, y: 0.0001}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &114443744641477670
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1565266395829876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff51582d265fb2f4b8d487e71187ec32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  openSprite: {fileID: 21300002, guid: c4abd6781d92a77499aa84d95a06ebd5, type: 3}
+  randomItem: {fileID: 114568279742357768, guid: 642e04d6080cc8c4d82b60782189e13e,
+    type: 2}
 --- !u!212 &212117300570664626
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Exit
   - Food
+  - Item
   layers:
   - Default
   - TransparentFX
