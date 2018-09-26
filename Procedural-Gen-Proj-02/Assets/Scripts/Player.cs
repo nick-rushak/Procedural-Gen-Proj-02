@@ -13,18 +13,15 @@ public class Player : MovingObject
     public int wallDamage = 1;
     public Text healthText;
     public bool onWorldBoard, dungeonTransition;
-
     public Image glove;
     public Image boot;
+    public int attackMod = 0, defenseMod = 0;
+    public Image weaponComp1, weaponComp2, weaponComp3;
 
     private Animator animator;
     private int health;
-    // Chapter 5
-    public int attackMod = 0, defenseMod = 0;
-
-    // Chapter 5
     private Dictionary<String, Item> inventory;
-
+    private Weapon weapon;
 
     protected override void Start()
     {
@@ -196,6 +193,11 @@ public class Player : MovingObject
             attackMod += gear.Value.attackMod;
             defenseMod += gear.Value.defenseMod;
         }
+
+        if (weapon)
+        {
+            wallDamage = attackMod + 3;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -215,6 +217,24 @@ public class Player : MovingObject
         {
             UpdateInventory(other);
             Destroy(other.gameObject);
+        }
+        else if (other.tag == "Weapon")
+        {
+            if (weapon)
+            {
+                Destroy(transform.GetChild(0).gameObject);
+            }
+            other.enabled = false;
+            other.transform.parent = transform;
+            weapon = other.GetComponent<Weapon>();
+            weapon.AquireWeapon();
+            weapon.inPlayerInventory = true;
+            weapon.enableSpriteRender(false);
+            wallDamage = attackMod + 3;
+            weaponComp1.sprite = weapon.getComponentImage(0);
+            weaponComp2.sprite = weapon.getComponentImage(1);
+            weaponComp3.sprite = weapon.getComponentImage(2);
+
         }
     }
 }

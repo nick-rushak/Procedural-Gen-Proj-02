@@ -12,7 +12,8 @@ public class Weapon : MonoBehaviour
 
     public void AquireWeapon()
     {
-
+        player = GetComponentInParent<Player>();
+        weaponsComps = GetComponentsInChildren<WeaponComponents>();
     }
 
     void Update()
@@ -27,11 +28,14 @@ public class Weapon : MonoBehaviour
 
     public void enableSpriteRender(bool isEnabled)
     {
-
+        foreach (WeaponComponents comp in weaponsComps)
+        {
+            comp.getSpriteRenderer().enabled = isEnabled;
+        }
     }
 
     public Sprite getComponentImage(int index)
     {
-        return null;
+        return weaponsComps[index].getSpriteRenderer().sprite;
     }
 }
