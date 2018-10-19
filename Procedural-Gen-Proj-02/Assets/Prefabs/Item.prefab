@@ -81,9 +81,9 @@ MonoBehaviour:
   glove: {fileID: 21300004, guid: c4abd6781d92a77499aa84d95a06ebd5, type: 3}
   boot: {fileID: 21300006, guid: c4abd6781d92a77499aa84d95a06ebd5, type: 3}
   type: 0
-  level: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  attackMod: 24
-  defenseMod: 24
+  level: {r: 0, g: 1, b: 0, a: 1}
+  attackMod: 6
+  defenseMod: 5
 --- !u!212 &212197511254737044
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -120,7 +120,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300004, guid: c4abd6781d92a77499aa84d95a06ebd5, type: 3}
-  m_Color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  m_Color: {r: 0, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
