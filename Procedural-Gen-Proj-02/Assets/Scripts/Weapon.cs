@@ -18,11 +18,39 @@ public class Weapon : MonoBehaviour
 
     void Update()
     {
+        if (inPlayerInventory)
+        {
+            transform.position = player.transform.position;
+            if (weaponUsed == true)
+            {
+                float degreeY = 0, degreeZ = -90f, degreeZMax = 275f;
+                Vector3 returnVecter = Vector3.zero;
+                if (Player.isFacingRight)
+                {
+                    degreeY = 0;
+                    returnVecter = Vector3.zero;
+                }
+                else if (!Player.isFacingRight)
+                {
+                    degreeY = 180;
+                    returnVecter = new Vector3(0, 180, 0);
+                }
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, degreeY, degreeZ), Time.deltaTime * 20f);
+                if (transform.eulerAngles.z <= degreeZMax)
+                {
+                    transform.eulerAngles = returnVecter;
+                    weaponUsed = false;
+                    enableSpriteRender(false);
+                }
+            }
+        }
 
     }
 
     public void useWeapon()
     {
+        enableSpriteRender(true);
+        weaponUsed = true;
 
     }
 

@@ -111,8 +111,18 @@ MonoBehaviour:
   blockingLayer:
     serializedVersion: 2
     m_Bits: 256
+  boxCollider: {fileID: 6146652}
   wallDamage: 1
   healthText: {fileID: 0}
+  onWorldBoard: 0
+  dungeonTransition: 1
+  glove: {fileID: 0}
+  boot: {fileID: 0}
+  attackMod: 0
+  defenseMod: 0
+  weaponComp1: {fileID: 0}
+  weaponComp2: {fileID: 0}
+  weaponComp3: {fileID: 0}
 --- !u!212 &21246652
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -145,8 +155,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -900995045
-  m_SortingLayer: 0
+  m_SortingLayerID: 350516445
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-
 using System.Collections.Generic;
 using UnityEngine.UI;
 
@@ -11,12 +10,18 @@ public class GameManager : MonoBehaviour
     public static GameManager instance = null;
     [HideInInspector] public bool playersTurn = true;
 
+    public bool enemiesFaster = false;
+    public bool enemiesSmarter = false;
+    public int enemySpawnRatio = 20;
+
     private BoardManager boardScript;
 
     private DungeonManager dungeonScript;
     private Player playerScript;
     private List<Enemy> enemies;
     private bool enemiesMoving;
+
+    private bool playerInDungeon;
 
     void Awake()
     {
@@ -28,6 +33,8 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         enemies = new List<Enemy>();
+        enemiesFaster = false;
+        enemiesSmarter = false;
 
         boardScript = GetComponent<BoardManager>();
 
@@ -47,6 +54,8 @@ public class GameManager : MonoBehaviour
         enemies.Clear();
 
         boardScript.BoardSetup();
+
+        playerInDungeon = false;
     }
 
     void Update()
@@ -55,6 +64,16 @@ public class GameManager : MonoBehaviour
             return;
 
         StartCoroutine(MoveEnemies());
+    }
+
+    public void AddEnemyToList(Enemy script)
+    {
+        enemies.Add(script);
+    }
+
+    public void RemoveEnemyFromList(Enemy script)
+    {
+        enemies.Remove(script);
     }
 
     public void GameOver()
@@ -72,10 +91,42 @@ public class GameManager : MonoBehaviour
         {
             yield return new WaitForSeconds(turnDelay);
         }
+        List<Enemy> enemiesToDestroy = new List<Enemy>();
 
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            if (playerInDungeon)
+            {
+                if ((!enemies[i].getSpriteRenderer().isVisible))
+                {
+                    if (i == enemies.Count - 1)
+                        yield return new WaitForSeconds(enemies[i].moveTime);
+                    continue;
+                }
+            }
+            else
+            {
+                if ((!enemies[i].getSpriteRenderer().isVisible) || (!boardScript.checkValidTile(enemies[i].transform.position)))
+                {
+                    enemiesToDestroy.Add(enemies[i]);
+                    continue;
+                }
+            }
+
+            enemies[i].MoveEnemy();
+
+            yield return new WaitForSeconds(enemies[i].moveTime);
+        }
         playersTurn = true;
 
         enemiesMoving = false;
+
+        for (int i = 0; i < enemiesToDestroy.Count; i++)
+        {
+            enemies.Remove(enemiesToDestroy[i]);
+            Destroy(enemiesToDestroy[i].gameObject);
+        }
+        enemiesToDestroy.Clear();
     }
 
     public void updateBoard(int horizantal, int vertical)
@@ -88,11 +139,23 @@ public class GameManager : MonoBehaviour
         dungeonScript.StartDungeon();
         boardScript.SetDungeonBoard(dungeonScript.gridPositions, dungeonScript.maxBound, dungeonScript.endPos);
         playerScript.dungeonTransition = false;
+
+        playerInDungeon = true;
+
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            Destroy(enemies[i].gameObject);
+        }
+        enemies.Clear();
     }
 
     public void exitDungeon()
     {
         boardScript.SetWorldBoard();
         playerScript.dungeonTransition = false;
+
+        playerInDungeon = false;
+
+        enemies.Clear();
     }
 }

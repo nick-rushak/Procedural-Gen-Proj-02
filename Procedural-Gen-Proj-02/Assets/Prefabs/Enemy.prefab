@@ -111,6 +111,9 @@ MonoBehaviour:
   blockingLayer:
     serializedVersion: 2
     m_Bits: 256
+  boxCollider: {fileID: 0}
+  playerDamage: 0
+  hp: 20
 --- !u!212 &21295068
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -143,8 +146,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -515111181
-  m_SortingLayer: 0
+  m_SortingLayerID: 350516445
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

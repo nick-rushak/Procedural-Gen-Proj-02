@@ -16,6 +16,7 @@ public class Player : MovingObject
     public Image glove;
     public Image boot;
     public int attackMod = 0, defenseMod = 0;
+    public static bool isFacingRight;
     public Image weaponComp1, weaponComp2, weaponComp3;
 
     private Animator animator;
@@ -37,6 +38,8 @@ public class Player : MovingObject
         dungeonTransition = false;
 
         inventory = new Dictionary<String, Item>();
+
+        isFacingRight = true;
 
         base.Start();
     }
@@ -63,10 +66,30 @@ public class Player : MovingObject
         {
             if (!dungeonTransition)
             {
-                if (onWorldBoard)
-                    canMove = AttemptMove<Wall>(horizontal, vertical);
+                Vector2 start = transform.position;
+                Vector2 end = start + new Vector2(horizontal, vertical);
+                base.boxCollider.enabled = false;
+                RaycastHit2D hit = Physics2D.Linecast(start, end, base.blockingLayer);
+                base.boxCollider.enabled = true;
+                if (hit.transform != null)
+                {
+                    switch (hit.transform.gameObject.tag)
+                    {
+                        case "Wall":
+                            canMove = AttemptMove<Wall>(horizontal, vertical);
+                            break;
+                        case "Chest":
+                            canMove = AttemptMove<Chest>(horizontal, vertical);
+                            break;
+                        case "Enemy":
+                            canMove = AttemptMove<Enemy>(horizontal, vertical);
+                            break;
+                    }
+                }
                 else
-                    canMove = AttemptMove<Chest>(horizontal, vertical);
+                {
+                    canMove = AttemptMove<Wall>(horizontal, vertical);
+                }
 
                 if (canMove && onWorldBoard)
                 {
@@ -80,9 +103,16 @@ public class Player : MovingObject
 
     protected override bool AttemptMove<T>(int xDir, int yDir)
     {
-        //Debug.Log (typeof(T));
+        if (xDir == 1 && !isFacingRight)
+        {
+            isFacingRight = true;
+        }
+        else if (xDir == -1 && isFacingRight)
+        {
+            isFacingRight = false;
+        }
+
         bool hit = base.AttemptMove<T>(xDir, yDir);
-        //Debug.Log (hit);
         GameManager.instance.playersTurn = false;
 
         return hit;
@@ -90,9 +120,6 @@ public class Player : MovingObject
 
     protected override void OnCantMove<T>(T component)
     {
-        //Debug.Log (typeof(T));
-        // Chapter 5
-        // TODO check if the type of T is Wall or Chest
         if (typeof(T) == typeof(Wall))
         {
             Wall blockingObj = component as Wall;
@@ -103,8 +130,18 @@ public class Player : MovingObject
             Chest blockingObj = component as Chest;
             blockingObj.Open();
         }
+        else if (typeof(T) == typeof(Enemy))
+        {
+            Enemy blockingObj = component as Enemy;
+            blockingObj.DamageEnemy(wallDamage);
+        }
 
         animator.SetTrigger("playerChop");
+
+        if (weapon)
+        {
+            weapon.useWeapon();
+        }
     }
 
     public void LoseHealth(int loss)
@@ -117,7 +154,6 @@ public class Player : MovingObject
 
         CheckIfGameOver();
     }
-
 
     private void CheckIfGameOver()
     {
@@ -144,7 +180,6 @@ public class Player : MovingObject
         }
     }
 
-    //Chapter 5
     private void UpdateHealth(Collider2D item)
     {
         if (health < 100)
@@ -195,9 +230,16 @@ public class Player : MovingObject
         }
 
         if (weapon)
-        {
             wallDamage = attackMod + 3;
-        }
+    }
+    private void AdaptDifficulty()
+    {
+        if (wallDamage >= 10)
+            GameManager.instance.enemiesSmarter = true;
+        if (wallDamage >= 15)
+            GameManager.instance.enemiesFaster = true;
+        if (wallDamage >= 20)
+            GameManager.instance.enemySpawnRatio = 10;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -217,6 +259,8 @@ public class Player : MovingObject
         {
             UpdateInventory(other);
             Destroy(other.gameObject);
+
+            AdaptDifficulty();
         }
         else if (other.tag == "Weapon")
         {
@@ -235,6 +279,8 @@ public class Player : MovingObject
             weaponComp2.sprite = weapon.getComponentImage(1);
             weaponComp3.sprite = weapon.getComponentImage(2);
 
+            AdaptDifficulty();
         }
     }
 }
+
