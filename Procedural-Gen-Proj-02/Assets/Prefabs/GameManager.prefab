@@ -93,6 +93,7 @@ MonoBehaviour:
   - {fileID: 110520, guid: b0ace21a29149403094422fb3bd96aa9, type: 2}
   - {fileID: 110520, guid: e85c94355cc4641da919bd5d0ac956d4, type: 2}
   chestTile: {fileID: 1565266395829876, guid: bfa325de0b36d734d9ecfeed0cf2f79c, type: 2}
+  enemy: {fileID: 195068, guid: 63619eddb9dc4b847ad8d19c9f050d20, type: 2}
 --- !u!114 &114898250200377028
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -107,3 +108,6 @@ MonoBehaviour:
   turnDelay: 0.1
   healthPoints: 1
   playersTurn: 1
+  enemiesFaster: 0
+  enemiesSmarter: 0
+  enemySpawnRatio: 20

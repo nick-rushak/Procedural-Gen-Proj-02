@@ -28,6 +28,8 @@ public class BoardManager : MonoBehaviour
     public GameObject[] outerWallTiles;
     public GameObject chestTile;
 
+    public GameObject enemy;
+
     private Transform boardHolder;
     private Dictionary<Vector2, Vector2> gridPositions = new Dictionary<Vector2, Vector2>();
 
@@ -69,9 +71,15 @@ public class BoardManager : MonoBehaviour
                 instance = Instantiate(toInstantiate, new Vector3(tileToAdd.x, tileToAdd.y, 0f), Quaternion.identity) as GameObject;
                 instance.transform.SetParent(boardHolder);
             }
-            else if (Random.Range(0, 10) == 1)
+            else if (Random.Range(0, 50) == 1)
             {
                 toInstantiate = exit;
+                instance = Instantiate(toInstantiate, new Vector3(tileToAdd.x, tileToAdd.y, 0f), Quaternion.identity) as GameObject;
+                instance.transform.SetParent(boardHolder);
+            }
+            else if (Random.Range(0, GameManager.instance.enemySpawnRatio) == 1)
+            {
+                toInstantiate = enemy;
                 instance = Instantiate(toInstantiate, new Vector3(tileToAdd.x, tileToAdd.y, 0f), Quaternion.identity) as GameObject;
                 instance.transform.SetParent(boardHolder);
             }
@@ -156,6 +164,12 @@ public class BoardManager : MonoBehaviour
                 instance = Instantiate(toInstantiate, new Vector3(tile.Key.x, tile.Key.y, 0f), Quaternion.identity) as GameObject;
                 instance.transform.SetParent(dungeonBoardHolder);
             }
+            else if (tile.Value == TileType.enemy)
+            {
+                toInstantiate = enemy;
+                instance = Instantiate(toInstantiate, new Vector3(tile.Key.x, tile.Key.y, 0f), Quaternion.identity) as GameObject;
+                instance.transform.SetParent(dungeonBoardHolder);
+            }
         }
 
         for (int x = -1; x < bound + 1; x++)
@@ -180,5 +194,14 @@ public class BoardManager : MonoBehaviour
     {
         Destroy(dungeonBoardHolder.gameObject);
         boardHolder.gameObject.SetActive(true);
+    }
+
+    public bool checkValidTile(Vector2 pos)
+    {
+        if (gridPositions.ContainsKey(pos))
+        {
+            return true;
+        }
+        return false;
     }
 }

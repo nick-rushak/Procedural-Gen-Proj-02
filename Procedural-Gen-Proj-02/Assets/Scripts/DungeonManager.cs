@@ -5,7 +5,7 @@ using Random = UnityEngine.Random;
 
 public enum TileType
 {
-    essential, random, empty, chest
+    essential, random, empty, chest, enemy
 }
 
 public class DungeonManager : MonoBehaviour
@@ -139,7 +139,14 @@ public class DungeonManager : MonoBehaviour
 
                     if (!gridPositions.ContainsKey(newRPathPos))
                     {
-                        gridPositions.Add(newRPathPos, TileType.empty);
+                        if (Random.Range(0, GameManager.instance.enemySpawnRatio) == 1)
+                        {
+                            gridPositions.Add(newRPathPos, TileType.enemy);
+                        }
+                        else
+                        {
+                            gridPositions.Add(newRPathPos, TileType.empty);
+                        }
 
                         PathTile newRPath = new PathTile(TileType.random, newRPathPos, minBound, maxBound, gridPositions);
                         pathQueue.Add(newRPath);
